@@ -81,16 +81,26 @@ func (a *Article) Edit() error {
 		"state":           a.State,
 	}
 
+	// 采用先更新数据库，再删除缓存的操作
+	err := models.EditArticle(a.ID, a)
+	if err != nil {
+		return err
+	}
 	cache := cache_service.Article{ID: a.ID}
 	key := cache.GetArticleKey()
 	if gredis.Exists(key) {
-		gredis.Set(key, article, 3600)
+		gredis.Delete(key)
 	}
 
 	return models.EditArticle(a.ID, article)
 }
 
 func (a *Article) Delete() error{
+	// 先删数据库，再删缓存
+	err := models.DeleteArticle(a.ID)
+	if err != nil {
+		return err
+	}
 	cache := cache_service.Article{ID: a.ID}
 	key := cache.GetArticleKey()
 	if gredis.Exists(key) {

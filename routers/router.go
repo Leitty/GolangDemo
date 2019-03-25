@@ -2,6 +2,7 @@ package routers
 
 import (
 	"Gin/learnGin/golangDemo/docs"
+	"Gin/learnGin/golangDemo/middleware/jwt"
 	"Gin/learnGin/golangDemo/pkg/setting"
 	"Gin/learnGin/golangDemo/pkg/upload"
 	"Gin/learnGin/golangDemo/routers/api"
@@ -36,7 +37,7 @@ func InitRouter() *gin.Engine{
 	r.POST("/upload", api.UploadImage)
 
 	apiv1 := r.Group("/api/v1")
-	//apiv1.Use(jwt.JWT())
+	apiv1.Use(jwt.JWT())
 	{
 		apiv1.GET("/tags",v1.GetTags)
 		apiv1.POST("/tags", v1.AddTag)
