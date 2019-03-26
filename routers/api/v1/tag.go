@@ -3,13 +3,12 @@ package v1
 import (
 	"Gin/learnGin/golangDemo/models"
 	"Gin/learnGin/golangDemo/pkg/e"
+	"Gin/learnGin/golangDemo/pkg/logging"
 	"Gin/learnGin/golangDemo/pkg/setting"
 	"Gin/learnGin/golangDemo/pkg/util"
 	"github.com/Unknwon/com"
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
-	logger "github.com/gpmgo/gopm/modules/log"
-	"log"
 	"net/http"
 )
 
@@ -67,7 +66,8 @@ func AddTag(c *gin.Context) {
 	valid.MaxSize(createdBy, 100, "created_by").Message("创建人最长为100字符")
 	valid.Range(state, 0 , 1, "state").Message("状态只允许0或1")
 
-	log.Printf("name: %v, state: %v, created_by: %v", name, state, createdBy)
+	logging.Info("name: %v, state: %v, created_by: %v", name, state, createdBy)
+	//log.Printf("name: %v, state: %v, created_by: %v", name, state, createdBy)
 	code := e.INVALID_PARAMS
 	//respCode := http.StatusBadRequest
 	if !valid.HasErrors() {
@@ -81,7 +81,7 @@ func AddTag(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			logger.Info(err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 
@@ -137,7 +137,7 @@ func EditTag(c *gin.Context) {
 		}
 	}else {
 		for _, err := range valid.Errors {
-			logger.Info(err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 
@@ -170,7 +170,7 @@ func DeleteTag(c *gin.Context) {
 		}
 	}else {
 		for _, err := range valid.Errors {
-			logger.Info(err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 

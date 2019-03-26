@@ -4,10 +4,10 @@ import (
 	"Gin/learnGin/golangDemo/eureka"
 	"Gin/learnGin/golangDemo/models"
 	"Gin/learnGin/golangDemo/pkg/gredis"
+	"Gin/learnGin/golangDemo/pkg/logging"
 	"Gin/learnGin/golangDemo/pkg/setting"
 	"Gin/learnGin/golangDemo/routers"
 	"fmt"
-	"github.com/gpmgo/gopm/modules/log"
 	"net/http"
 	"sync"
 )
@@ -32,7 +32,7 @@ func main() {
 	models.Setup()
 	err := gredis.Setup()
 	if err !=nil {
-		log.Warn("Fail to connect to redis")
+		logging.Warn("Fail to connect to redis")
 	}
 
 	go startWebServer()

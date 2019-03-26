@@ -1,13 +1,13 @@
 package app
 
 import (
+	"Gin/learnGin/golangDemo/pkg/logging"
 	"github.com/astaxie/beego/validation"
-	"github.com/gpmgo/gopm/modules/log"
 )
 
 func MarkErrors(errors []*validation.Error) {
 	for _, err := range errors {
-		log.Info(err.Key, err.Message)
+		logging.Info(err.Key, err.Message)
 	}
 	return
 }

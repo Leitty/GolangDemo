@@ -9,17 +9,17 @@ import (
 
 var (
 	LogSavePath = "runtime/logs/"
-	LogSaveName = "log"
+	LogSaveName = "gin"
 	LogFileExt = "log"
 	TimeFormat = "20060102"
 )
 
-func getLogfilePath() string{
+func getLogFilePath() string{
 	return fmt.Sprintf("%s", LogSavePath)
 }
 
 func getLogFileFullPath() string{
-	prefixPath := getLogFileFullPath()
+	prefixPath := getLogFilePath()
 	suffixPath := fmt.Sprintf("%s%s.%s", LogSaveName, time.Now().Format(TimeFormat), LogFileExt)
 
 	return fmt.Sprintf("%s%s", prefixPath, suffixPath)

@@ -2,11 +2,10 @@ package upload
 
 import (
 	"Gin/learnGin/golangDemo/pkg/file"
+	"Gin/learnGin/golangDemo/pkg/logging"
 	"Gin/learnGin/golangDemo/pkg/setting"
 	"Gin/learnGin/golangDemo/pkg/util"
 	"fmt"
-	logger "github.com/gpmgo/gopm/modules/log"
-	"log"
 	"mime/multipart"
 	"os"
 	"path"
@@ -46,8 +45,7 @@ func CheckImageExt(filename string) bool {
 func CheckImageSize(f multipart.File) bool {
 	size ,err := file.GetSize(f)
 	if err != nil {
-		log.Println(err)
-		logger.Warn("Check image with error: %v", err)
+		logging.Warn("Check image with error: %v", err)
 		return false
 	}
 	return size <= setting.AppSetting.ImageMaxSize

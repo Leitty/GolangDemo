@@ -2,9 +2,9 @@ package api
 
 import (
 	"Gin/learnGin/golangDemo/pkg/e"
+	"Gin/learnGin/golangDemo/pkg/logging"
 	"Gin/learnGin/golangDemo/pkg/upload"
 	"github.com/gin-gonic/gin"
-	"github.com/gpmgo/gopm/modules/log"
 	"net/http"
 )
 
@@ -15,7 +15,7 @@ func UploadImage(c *gin.Context){
 	//发送报文的图片key要为image
 	file, image, err := c.Request.FormFile("image")
 	if err != nil {
-		log.Warn("Request from file err: %v", err)
+		logging.Warn("Request from file err: %v", err)
 		code = e.ERROR
 		c.JSON(http.StatusOK, gin.H{
 			"code": code,
@@ -37,10 +37,10 @@ func UploadImage(c *gin.Context){
 		} else {
 			err := upload.CheckImage(fullPath)
 			if err != nil {
-				log.Warn("%v", err)
+				logging.Warn("%v", err)
 				code = e.ERROR_UPLOAD_CHECK_IMAGE_FAIL
 			} else if err := c.SaveUploadedFile(image, src); err != nil {
-				log.Warn("Fail to save image: %v", err)
+				logging.Warn("Fail to save image: %v", err)
 				code = e.ERROR_UPLOAD_SAVE_IMAGE_FAIL
 			} else {
 				data["image_url"] = upload.GetImageFullUrl(imageName)

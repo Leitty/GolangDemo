@@ -1,10 +1,10 @@
 package gredis
 
 import (
+	"Gin/learnGin/golangDemo/pkg/logging"
 	"Gin/learnGin/golangDemo/pkg/setting"
 	"encoding/json"
 	"github.com/gomodule/redigo/redis"
-	"github.com/gpmgo/gopm/modules/log"
 	"time"
 )
 
@@ -34,7 +34,7 @@ func Setup() error{
 			return err
 		},
 	}
-	log.Info("Connected to Redis successful!")
+	logging.Info("Connected to Redis successful!")
 	return nil
 }
 

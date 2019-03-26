@@ -1,6 +1,7 @@
 package eureka
 
 import (
+	"Gin/learnGin/golangDemo/pkg/logging"
 	"Gin/learnGin/golangDemo/pkg/setting"
 	"bytes"
 	"encoding/json"
@@ -114,7 +115,7 @@ func httpRequest(byte []byte, method, url string) *http.Request{
 	reader := bytes.NewBuffer(byte)
 	req, err := http.NewRequest(method, url, reader)
 	if err != nil {
-		log.Fatalf("Fail to translate data to NewRequest: %s", err)
+		logging.Fatalf("Fail to translate data to NewRequest: %s", err)
 	}
 	req.Header.Add("Accept", "*/*")
 	req.Header.Add("Content-Type", "application/json")
@@ -132,7 +133,7 @@ func httpDo(req *http.Request) bool{
 	resp, err := client.Do(req)
 	defer resp.Body.Close()
 	if err != nil {
-		log.Printf("HTTP request failed: %s", err)
+		logging.Warn("HTTP request failed: %s", err)
 		return false
 	}
 

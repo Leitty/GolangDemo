@@ -1,11 +1,11 @@
 package models
 
 import (
+	"Gin/learnGin/golangDemo/pkg/logging"
 	"Gin/learnGin/golangDemo/pkg/setting"
 	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"log"
 )
 
 var db *gorm.DB
@@ -25,9 +25,9 @@ func Setup(){
 		setting.DatabaseSetting.Host,
 		setting.DatabaseSetting.Name))
 	if err != nil {
-		log.Fatalf("Fail to open the DB: %v, with errors: %v", setting.DatabaseSetting.Host, err)
+		logging.Fatalf("Fail to open the DB: %v, with errors: %v", setting.DatabaseSetting.Host, err)
 	} else {
-		log.Printf("Connect to DB successful.")
+		logging.Info("Connect to DB successful.")
 	}
 
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {

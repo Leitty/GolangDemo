@@ -1,6 +1,7 @@
 package setting
 
 import (
+	"Gin/learnGin/golangDemo/pkg/logging"
 	"github.com/go-ini/ini"
 	"log"
 	"time"
@@ -74,14 +75,14 @@ func Setup(){
 
 	err  = Cfg.Section("app").MapTo(AppSetting)
 	if err != nil {
-		log.Fatalf("Cfg.MapTo AppSetting err: %v", err)
+		logging.Fatalf("Cfg.MapTo AppSetting err: %v", err)
 	}
 
 	AppSetting.ImageMaxSize = AppSetting.ImageMaxSize * 1024 * 1024
 
 	err = Cfg.Section("server").MapTo(ServerSetting)
 	if err != nil {
-		log.Fatalf("Cfg.MapTo ServerSetting err: %v", err)
+		logging.Fatalf("Cfg.MapTo ServerSetting err: %v", err)
 	}
 
 	ServerSetting.ReadTimeout = ServerSetting.ReadTimeout * time.Second
@@ -89,18 +90,18 @@ func Setup(){
 
 	err = Cfg.Section("database").MapTo(DatabaseSetting)
 	if err != nil {
-		log.Fatalf("Cfg.MapTo DatabaseSetting  err: %v", err)
+		logging.Fatalf("Cfg.MapTo DatabaseSetting  err: %v", err)
 	}
 
 	err = Cfg.Section("redis").MapTo(RedisSetting)
 	if err != nil {
-		log.Fatalf("Cfg.MapTo RedisSetting  err: %v", err)
+		logging.Fatalf("Cfg.MapTo RedisSetting  err: %v", err)
 	}
 	RedisSetting.IdleTimeout = RedisSetting.IdleTimeout * time.Second
 
 	err = Cfg.Section("eureka").MapTo(EurekaSetting)
 	if err != nil {
-		log.Fatalf("Cfg.MapTo EurekaSetting  err: %v", err)
+		logging.Fatalf("Cfg.MapTo EurekaSetting  err: %v", err)
 	}
 	EurekaHomeUrl = EurekaSetting.EurekaServerUrl + "apps/" + EurekaSetting.AppName
 }

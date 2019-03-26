@@ -4,13 +4,14 @@ import (
 	"Gin/learnGin/golangDemo/models"
 	"Gin/learnGin/golangDemo/pkg/app"
 	"Gin/learnGin/golangDemo/pkg/e"
+	"Gin/learnGin/golangDemo/pkg/logging"
 	"Gin/learnGin/golangDemo/pkg/setting"
 	"Gin/learnGin/golangDemo/pkg/util"
 	"Gin/learnGin/golangDemo/service/article_service"
 	"github.com/Unknwon/com"
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
-	"github.com/gpmgo/gopm/modules/log"
+	//"github.com/gpmgo/gopm/modules/log"
 	"net/http"
 )
 
@@ -81,7 +82,7 @@ func GetArticles(c *gin.Context) {
 		data["total"] = models.GetArticleTotal(maps)
 	} else {
 		for _, err := range valid.Errors {
-			log.Info(err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 	c.JSON(http.StatusOK, gin.H{
@@ -215,7 +216,8 @@ func EditArticle(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			log.Info(err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
+			//log.Info(err.Key, err.Message)
 		}
 	}
 	c.JSON(http.StatusOK, gin.H{
@@ -245,7 +247,7 @@ func DeleteArticle(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			log.Info(err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 	c.JSON(http.StatusOK, gin.H{

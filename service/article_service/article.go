@@ -3,9 +3,9 @@ package article_service
 import (
 	"Gin/learnGin/golangDemo/models"
 	"Gin/learnGin/golangDemo/pkg/gredis"
+	"Gin/learnGin/golangDemo/pkg/logging"
 	"Gin/learnGin/golangDemo/service/cache_service"
 	"encoding/json"
-	"github.com/gpmgo/gopm/modules/log"
 )
 
 type Article struct {
@@ -50,7 +50,7 @@ func (a *Article) Get() (*models.Article, error){
 	if gredis.Exists(key) {
 		data , err := gredis.Get(key)
 		if err != nil {
-			log.Info("", err)
+			logging.Info("", err)
 		} else {
 			json.Unmarshal(data, &cacheArticle)
 			return cacheArticle, nil

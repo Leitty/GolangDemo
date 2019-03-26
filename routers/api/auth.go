@@ -3,10 +3,10 @@ package api
 import (
 	"Gin/learnGin/golangDemo/models"
 	"Gin/learnGin/golangDemo/pkg/e"
+	"Gin/learnGin/golangDemo/pkg/logging"
 	"Gin/learnGin/golangDemo/pkg/util"
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
 )
 
@@ -38,7 +38,8 @@ func GetAuth(c *gin.Context){
 			token , err := util.GenerateToken(username, password)
 			if err != nil {
 				code = e.ERROR_AUTH_TOKEN
-				log.Printf("Fail to Generate Token: %v",err)
+				logging.Info("Fail to Generate Token: %v",err)
+				//log.Printf("Fail to Generate Token: %v",err)
 			} else {
 				data["token"] = token
 
@@ -49,7 +50,8 @@ func GetAuth(c *gin.Context){
 		}
 	} else {
 		for _, err := range valid.Errors {
-			log.Println(err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
+			//log.Println(err.Key, err.Message)
 		}
 	}
 
