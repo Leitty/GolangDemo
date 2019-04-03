@@ -1,7 +1,6 @@
 package main
 
 import (
-	"Gin/learnGin/golangDemo/eureka"
 	"Gin/learnGin/golangDemo/models"
 	"Gin/learnGin/golangDemo/pkg/gredis"
 	"Gin/learnGin/golangDemo/pkg/logging"
@@ -9,7 +8,6 @@ import (
 	"Gin/learnGin/golangDemo/routers"
 	"fmt"
 	"net/http"
-	"sync"
 )
 
 func main() {
@@ -35,15 +33,17 @@ func main() {
 		logging.Warn("Fail to connect to redis")
 	}
 
-	go startWebServer()
+	//go startWebServer()
+	//
+	//eureka.Register()
+	//defer eureka.DeRegister()
+	//go eureka.StartHeartbeat()
+	//
+	//wg := sync.WaitGroup{}
+	//wg.Add(1)
+	//wg.Wait()
 
-	eureka.Register()
-	defer eureka.DeRegister()
-	go eureka.StartHeartbeat()
-
-	wg := sync.WaitGroup{}
-	wg.Add(1)
-	wg.Wait()
+	startWebServer()
 }
 
 func startWebServer() {

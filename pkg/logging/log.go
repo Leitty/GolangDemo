@@ -1,6 +1,7 @@
 package logging
 
 import (
+	"Gin/learnGin/golangDemo/pkg/file"
 	"fmt"
 	"log"
 	"os"
@@ -28,8 +29,15 @@ const (
 )
 
 func init(){
-	filePath := getLogFileFullPath()
-	F = openLogFile(filePath)
+	filePath := getLogFilePath()
+	//F = openLogFile(filePath)
+
+	fileName := getLogFileName()
+
+	F, err := file.MustOpen(fileName, filePath)
+	if err != nil {
+		log.Fatalf("logging.Setup err: %v", err)
+	}
 	logger = log.New(F, DefaultPrefix, log.LstdFlags)
 }
 

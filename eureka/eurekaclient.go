@@ -45,7 +45,7 @@ var eurekaHealthUrl string
 func Register() {
 	//获取eureka的参数
 	app := setting.EurekaSetting.AppName
-	u1, _ := uuid.NewV4()
+	u1,_ := uuid.NewV4()
 	instanceId = app + "-" + u1.String()
 	port := setting.ServerSetting.HttpPort
 

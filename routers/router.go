@@ -3,11 +3,13 @@ package routers
 import (
 	"Gin/learnGin/golangDemo/docs"
 	"Gin/learnGin/golangDemo/middleware/jwt"
+	"Gin/learnGin/golangDemo/middleware/metrics"
 	"Gin/learnGin/golangDemo/pkg/setting"
 	"Gin/learnGin/golangDemo/pkg/upload"
 	"Gin/learnGin/golangDemo/routers/api"
 	"Gin/learnGin/golangDemo/routers/api/v1"
 	"github.com/gin-gonic/gin"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"net/http"
@@ -18,6 +20,7 @@ func InitRouter() *gin.Engine{
 
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
+	r.Use(metrics.Metric())
 
 	gin.SetMode(setting.ServerSetting.RunMode)
 
@@ -32,10 +35,15 @@ func InitRouter() *gin.Engine{
 
 	//token
 	r.GET("/auth", api.GetAuth)
+
+	// prometheus
+	r.GET("/metrics",gin.WrapH(promhttp.Handler()))
+
 	//image upload
 	r.StaticFS("/upload/images",http.Dir(upload.GetImageFullPath()))
 	r.POST("/upload", api.UploadImage)
 
+	//业务路径
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())
 	{
