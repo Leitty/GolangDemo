@@ -1,6 +1,8 @@
 # GolangDemo
 
-借鉴https://github.com/EDDYCJY/go-gin-example的方式，使用Gin框架。规范化了配置文件(conf文件夹)、日志处理(pkg/logging文件夹)、中间件(middleware文件夹)等，将路由与业务分离(url路由在routers中，业务逻辑在service中)。
+借鉴https://github.com/EDDYCJY/go-gin-example的样例
+
+使用Gin框架，规范了配置文件(conf文件夹)、日志处理(pkg/logging文件夹)、中间件(middleware文件夹)等，将路由与业务分离(url路由在routers中，业务逻辑在service中)。
 
 主要有5点修改：
 1. 加入了eureka注册；
